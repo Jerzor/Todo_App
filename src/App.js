@@ -7,6 +7,8 @@ import {
   Input,
   Button,
   TasksMenu,
+  Select,
+  Option,
 } from "./styles/TodoAppStyle";
 import Todo from "./components/Todo";
 
@@ -59,10 +61,48 @@ function App() {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
+  //===========================
+  // ===== select options =====
+  //===========================
+  const [select, setSelect] = useState("all");
+  const handleChangeOption = (event) => {
+    setSelect(event.target.value);
+  };
+
+  const selectTasks = () => {
+    switch (select) {
+      case "all":
+        return tasks.map((task) => (
+          <li key={task.id}>
+            <Todo task={task} deleteTask={deleteTask} checkTask={checkTask} />
+          </li>
+        ));
+      case "completed":
+        return tasks.map((task) =>
+          task.complete === true ? (
+            <li key={task.id}>
+              <Todo task={task} deleteTask={deleteTask} checkTask={checkTask} />
+            </li>
+          ) : null
+        );
+      case "uncompleted":
+        return tasks.map((task) =>
+          task.complete === false ? (
+            <li key={task.id}>
+              <Todo task={task} deleteTask={deleteTask} checkTask={checkTask} />
+            </li>
+          ) : null
+        );
+      default:
+        return;
+    }
+  };
+
   return (
     <Container>
       <TodoApp>
         <Title>Todo List</Title>
+
         <AddTask>
           <Input
             ref={inputRef}
@@ -73,17 +113,16 @@ function App() {
           />
           <Button onClick={addTask}>Add</Button>
         </AddTask>
+
+        <Select value={select} onChange={handleChangeOption}>
+          <Option value="all">All</Option>
+          <Option value="completed">Completed</Option>
+          <Option value="uncompleted">Uncompleted</Option>
+        </Select>
+
         <TasksMenu>
           {tasks.length ? (
-            tasks.map((task) => (
-              <li key={task.id}>
-                <Todo
-                  task={task}
-                  deleteTask={deleteTask}
-                  checkTask={checkTask}
-                />
-              </li>
-            ))
+            selectTasks()
           ) : (
             <p style={{ textAlign: "center" }}>Add some tasks to your list!</p>
           )}

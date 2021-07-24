@@ -24,7 +24,6 @@ export const AddTask = styled.div``;
 export const Input = styled.input`
   padding: 10px 10px;
   width: 250px;
-  /* border: 2px solid black; */
 `;
 
 export const Button = styled.button`
@@ -40,6 +39,13 @@ export const Button = styled.button`
     color: #fff;
   }
 `;
+
+export const Select = styled.select`
+  width: 150px;
+  padding: 10px;
+`;
+
+export const Option = styled.option``;
 
 export const TasksMenu = styled.ul`
   margin: 25px 0;
