@@ -1,4 +1,4 @@
-# TODO APP
+# Todo App
 
 # HOW TO INSTALL WITH NPM
 1. Download repo and write in terminal: npm install.
